@@ -58,18 +58,19 @@ export default {
           description: "Composer to menedżer zależności dla PHP. Pobierz i zainstaluj go globalnie na swoim systemie.",
           code: "composer -v",
           response: "Composer version 2.5.7 2023-05-24 15:00:39\n",
+          note: "Odwiedź https://getcomposer.org/download/, aby pobrać najnowszą wersję composer.",
         },
         {
           title: "Krok 3: Instalacja Laravel",
           description: "Użyj Composera, aby zainstalować Laravel globalnie.",
           code: "composer global require laravel/installer",
           response: "Using version ^5.11 for laravel/installer",
-          note: "Upewnij się, że 'Composer' jest dodany do zmiennej systemowej PATH.",
         },
         {
           title: "Krok 4: Utwórz Projekt Laravel",
           description: "Uruchom poniższą komendę, aby utworzyć nowy projekt Laravel.",
-          code: "laravel new my-laravel-app",
+          code: "laravel new my-laravel-app\n> breeze\n> vue\n> none\n> 1\n> mysql\n> yes",
+          response: "INFO  Application ready in [my-laravel-app]. You can start your local development using:\n"
         },
         {
           title: "Krok 5: Uruchom Serwer Deweloperski",
@@ -128,7 +129,7 @@ Route::post('/', [PostController::class, 'store'])->name('posts.store');
           `,
         },
         {
-          title: "Krok 12: Utwórz Widoki Inertia",
+          title: "Krok 12: Utwórz Widoki Vue",
           description: "Stwórz komponenty Vue dla tras zdefiniowanych wcześniej.",
           note: "Możesz użyć funkcji route('route.name') zamiast wpisywać adres URL statycznie.",
           code: '' +
@@ -178,6 +179,7 @@ Route::post('/', [PostController::class, 'store'])->name('posts.store');
               '    form.post("/");\n' +
               '}\n' +
               '<'+'/script>',
+          response: 'Dokumentacje: https://laravel.com/docs/10.x, https://vuejs.org/guide/introduction.html'
     },
   ],
   }

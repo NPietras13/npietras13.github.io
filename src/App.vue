@@ -76,13 +76,13 @@ export default {
           description: "Composer to menedżer zależności dla PHP. Pobierz i zainstaluj go globalnie na swoim systemie.",
           code: "composer -v",
           response: "Composer version 2.5.7 2023-05-24 15:00:39\n",
+          note: "Odwiedź https://getcomposer.org/download/, aby pobrać najnowszą wersję composer.",
         },
         {
           title: "Krok 3: Instalacja Laravel",
           description: "Użyj Composera, aby zainstalować Laravel globalnie.",
           code: "composer global require laravel/installer",
           response: "Using version ^5.11 for laravel/installer",
-          note: "Upewnij się, że 'Composer' jest dodany do zmiennej systemowej PATH.",
         },
         {
           title: "Krok 4: Utwórz Projekt Laravel",

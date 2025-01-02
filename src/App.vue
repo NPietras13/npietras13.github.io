@@ -49,6 +49,24 @@ export default {
       currentStep: 0,
       steps: [
         {
+          title: "Krok 0: Wstęp teoretyczny",
+          description: "Zanim rozpoczniemy konfigurację projektu, warto zrozumieć, czym są Laravel, Vue.js i Inertia.js, oraz jak razem tworzą nowoczesną aplikację webową.",
+          note: "Dokumentacje można znaleźć tutaj: https://vuejs.org/guide/introduction.html, https://laravel.com/docs/10.x, https://inertiajs.com/",
+          code: "" +
+              "### Laravel\n" +
+              "- Laravel to framework PHP, który ułatwia tworzenie aplikacji webowych dzięki eleganckiej składni i wbudowanym funkcjom. \n" +
+              "- Umożliwia zarządzanie routingiem, bazą danych, uwierzytelnianiem i innymi aspektami back-endu.\n" +
+              "- Dzięki funkcjom takim jak migracje, Eloquent ORM i Blade, Laravel jest doskonałym wyborem dla szybkiego tworzenia aplikacji.\n\n" +
+              "### Vue.js\n" +
+              "- Vue.js to framework JavaScript, który umożliwia budowanie dynamicznych i responsywnych interfejsów użytkownika.\n" +
+              "- Jest prosty w nauce, ale potężny, oferując możliwości takie jak komponenty, zarządzanie stanem i system reaktywności.\n" +
+              "- Vue.js idealnie pasuje do front-endu aplikacji, zapewniając użytkownikom przyjemne doświadczenie.\n\n" +
+              "### Inertia.js\n" +
+              "- Inertia.js to biblioteka, która łączy Laravel (back-end) z Vue.js (front-end), eliminując konieczność korzystania z API REST lub GraphQL.\n" +
+              "- Działa jako most między back-endem i front-endem, umożliwiając renderowanie komponentów Vue.js bez konieczności oddzielania aplikacji.\n" +
+              "- Dzięki Inertia możesz tworzyć aplikacje typu SPA bez skomplikowanej konfiguracji.",
+        },
+        {
           title: "Krok 1: Instalacja XAMPP",
           description: "Aby uruchomić Laravel na Windows, zainstaluj XAMPP, który dostarcza PHP, Apache i MySQL. Pobierz go z oficjalnej strony:",
           note: "Odwiedź https://www.apachefriends.org/index.html, aby pobrać najnowszą wersję XAMPP.",
@@ -69,7 +87,8 @@ export default {
         {
           title: "Krok 4: Utwórz Projekt Laravel",
           description: "Uruchom poniższą komendę, aby utworzyć nowy projekt Laravel.",
-          code: "laravel new my-laravel-app",
+          code: "laravel new my-laravel-app\n> breeze\n> vue\n> none\n> 1\n> mysql\n> yes",
+          response: "INFO  Application ready in [my-laravel-app]. You can start your local development using:\n"
         },
         {
           title: "Krok 5: Uruchom Serwer Deweloperski",
@@ -128,8 +147,52 @@ Route::post('/', [PostController::class, 'store'])->name('posts.store');
           `,
         },
         {
-          title: "Krok 12: Utwórz Widoki Inertia",
-          description: "Stwórz komponenty Vue dla tras zdefiniowanych wcześniej.",
+          title: "Krok 12: Zaimplementuj metody",
+          description:
+              "Zaimplementuj metody (index, create, store, show) w PostController.",
+          code:`  <?php
+
+  namespace App\\Http\\Controllers;
+
+  use Illuminate\\Http\\Request;
+  use Inertia\\Inertia;
+  use App\\Models\\Post;
+
+  class PostController extends Controller
+  {
+    public function index()
+    {
+      $posts = Post::all();
+      return Inertia::render('Posts/Index', ['posts' => $posts]);
+    }
+
+    public function create()
+    {
+      return Inertia::render('Posts/Create');
+    }
+
+    public function store(Request $request)
+    {
+      Post::create(
+      $request->validate([
+      'title' => 'required|string|max:255',
+      'content' => 'required|string',
+      ]));
+
+      return redirect()->route('posts.index');
+    }
+
+    public function show(Post $post)
+    {
+      return Inertia::render('Posts/Show', ['post' => $post]);
+    }
+  }`
+  ,
+    note: "Use Laravel's Eloquent for CRUD operations.",
+  },
+        {
+          title: "Krok 13: Utwórz Widoki Inertia",
+          description: "Stwórz komponenty Vue dla tras zdefiniowanych wcześniej w folderze.",
           note: "Możesz użyć funkcji route('route.name') zamiast wpisywać adres URL statycznie.",
           code: '' +
               '<!-- Index.vue - Lista Postów -->\n' +
